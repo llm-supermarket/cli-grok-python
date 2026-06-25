@@ -1,0 +1,39 @@
+[project]
+name = "rclone-encrypt-test-grok-python"
+version = "0.1.0"
+description = "A small CLI tool that encrypts and decrypts using the rclone encryption defaults."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+  {name = "llm-supermarket"}
+]
+dependencies = [
+  "pynacl>=1.5.0",
+  "cryptography>=42.0.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+urls = {Homepage = "https://github.com/llm-supermarket/rclone-encrypt-test-grok-python"}
+
+[project.scripts]
+rclone-encrypt-test-grok-python = "rclone_encrypt_test_grok_python.cli:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["rclone_encrypt_test_grok_python*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q"
+
+[tool.black]
+line-length = 100
+
+[tool.isort]
+profile = "black"
