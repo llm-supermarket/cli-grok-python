@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rclone-encrypt-test-grok-python"
+version = "0.1.0"
+description = "A small CLI tool that encrypts and decrypts using the rclone encryption defaults."
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [{name = "opencode"}]
+dependencies = [
+    "pynacl>=1.5.0",
+    "cryptography>=42.0.0",
+]
+
+[project.scripts]
+rclone-encrypt-test-grok-python = "rclone_encrypt_test_grok_python.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/anomalyco/rclone-encrypt-test-grok-python"
+
+[tool.hatch.build.targets.wheel]
+packages = ["rclone_encrypt_test_grok_python"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

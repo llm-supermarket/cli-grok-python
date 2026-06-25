@@ -1,5 +1,6 @@
 # rclone-encrypt-test-grok-python
-A small CLI tool that encrypts and decrypts using the rclone encryption defaults. 
+
+A small CLI tool that encrypts and decrypts using the rclone encryption defaults.
 
 Rclone uses a custom salt if no salt is provided, which this tool will use by default. A few similar tools:
 
@@ -8,7 +9,82 @@ Rclone uses a custom salt if no salt is provided, which this tool will use by de
 - https://github.com/br0kenpixel/rclone-rcc
 - @fyears/rclone-crypt
 
-Rclone encryption uses: 
+Rclone encryption uses:
 - NaCl SecretBox (XSalsa20 + Poly1305) for the file contents.
 - AES256 for the filenames.
 - scrypt for keymaterial.
+
+## Installation
+
+Install from source using pip (recommended for this project):
+
+```bash
+python -m pip install -e .
+```
+
+After installation the command is available globally:
+
+```bash
+rclone-encrypt-test-grok-python --help
+```
+
+Uninstall:
+
+```bash
+python -m pip uninstall -y rclone-encrypt-test-grok-python
+```
+
+## Usage
+
+Encrypt a file (will prompt for password and optional salt):
+
+```bash
+rclone-encrypt-test-grok-python encrypt -i plaintext.txt -o ciphertext.bin
+```
+
+Decrypt a file:
+
+```bash
+rclone-encrypt-test-grok-python decrypt -i ciphertext.bin -o recovered.txt
+```
+
+Use a custom filename encoding (base64 shown):
+
+```bash
+rclone-encrypt-test-grok-python encrypt -i in.txt -o out.bin --filename-encoding base64
+```
+
+Pass password via flag (insecure; tool prints a warning):
+
+```bash
+rclone-encrypt-test-grok-python encrypt -i in.txt -o out.bin --password 'MyPassw0rd!'
+```
+
+Provide salt and base32 explicitly:
+
+```bash
+rclone-encrypt-test-grok-python decrypt -i enc.bin -o plain.txt --salt 'mysalt' --filename-encoding base32
+```
+
+Write to stdout by omitting -o:
+
+```bash
+rclone-encrypt-test-grok-python decrypt -i enc.bin | cat
+```
+
+## Security notes
+
+- Using `--password` on the command line is insecure. It may appear in process listings and shell history.
+- Prefer letting the tool prompt (uses getpass) or supply via a short-lived environment variable you clear afterwards.
+- After using `--password` in a shell, clear that history entry.
+
+## Testing
+
+```bash
+python -m pip install -e '.[dev]' pytest
+python -m pytest -q
+```
+
+## License
+
+MIT
