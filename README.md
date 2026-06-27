@@ -1,4 +1,4 @@
-# rclone-encrypt-test-grok-python
+# cli-grok-python
 
 A small CLI tool that encrypts and decrypts using the rclone encryption defaults.
 
@@ -25,13 +25,13 @@ python -m pip install -e .
 After installation the command is available globally:
 
 ```bash
-rclone-encrypt-test-grok-python --help
+cli-grok-python --help
 ```
 
 Uninstall:
 
 ```bash
-python -m pip uninstall -y rclone-encrypt-test-grok-python
+python -m pip uninstall -y cli-grok-python
 ```
 
 ## Usage
@@ -39,37 +39,37 @@ python -m pip uninstall -y rclone-encrypt-test-grok-python
 Encrypt a file (will prompt for password and optional salt):
 
 ```bash
-rclone-encrypt-test-grok-python encrypt -i plaintext.txt -o ciphertext.bin
+cli-grok-python encrypt -i plaintext.txt -o ciphertext.bin
 ```
 
 Decrypt a file:
 
 ```bash
-rclone-encrypt-test-grok-python decrypt -i ciphertext.bin -o recovered.txt
+cli-grok-python decrypt -i ciphertext.bin -o recovered.txt
 ```
 
 Use a custom filename encoding (base64 shown):
 
 ```bash
-rclone-encrypt-test-grok-python encrypt -i in.txt -o out.bin --filename-encoding base64
+cli-grok-python encrypt -i in.txt -o out.bin --filename-encoding base64
 ```
 
 Pass password via flag (insecure; tool prints a warning):
 
 ```bash
-rclone-encrypt-test-grok-python encrypt -i in.txt -o out.bin --password 'MyPassw0rd!'
+cli-grok-python encrypt -i in.txt -o out.bin --password 'MyPassw0rd!'
 ```
 
 Provide salt and base32 explicitly:
 
 ```bash
-rclone-encrypt-test-grok-python decrypt -i enc.bin -o plain.txt --salt 'mysalt' --filename-encoding base32
+cli-grok-python decrypt -i enc.bin -o plain.txt --salt 'mysalt' --filename-encoding base32
 ```
 
 Write to stdout by omitting -o:
 
 ```bash
-rclone-encrypt-test-grok-python decrypt -i enc.bin | cat
+cli-grok-python decrypt -i enc.bin | cat
 ```
 
 ## Security notes
